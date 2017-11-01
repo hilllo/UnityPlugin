@@ -32,6 +32,19 @@ namespace CppPlugin {
         public static extern void PassString(StringBuilder dest, string src);
 
         [DllImport("cppplugin")]
+        public static extern void GetLPCTSTR(StringBuilder sb);
+
+        [DllImport("cppplugin", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        public static extern void GetLPWSTR([MarshalAsAttribute(UnmanagedType.LPWStr)] StringBuilder sb);
+
+        public delegate void LPCWSTRCallBack([MarshalAsAttribute(UnmanagedType.LPWStr)] string str);
+        public static void OnLPCWSTRCallBack([MarshalAsAttribute(UnmanagedType.LPWStr)] string str) {
+            UnityEngine.Debug.Log("[OnLPCWSTRCallBack] Get string from callback:" + str);
+        }
+        [DllImport("cppplugin", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        public static extern void GetLPCWSTRfromCallback(LPCWSTRCallBack cb);
+
+        [DllImport("cppplugin")]
         public static extern void Sort(int[] a, int length);
 
         #endregion Simple Func

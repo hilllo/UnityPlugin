@@ -3,9 +3,14 @@
 #include <algorithm>
 #include <string>
 #include <sstream>
+#include <Windows.h>
+#include <tchar.h>
+#include <atlstr.h>
 
 namespace {
 	int kInt = 666;
+	std::wstring kWStr = L"This is a kstring from wstring in C++";
+	LPCWSTR kLPCWSTR = L"This is a kLPCWSTR from LPCWSTR in C++";
 }
 
 void CppPlugin::Debug::Log(const char* message, int type) {
@@ -34,6 +39,24 @@ CPP_DLL void CppPlugin::PassString(char* dest, const char* src) {
 	s.append(", now pass it back from C++");
 	memcpy(dest, s.data(), s.size());
 	dest[(int)s.size()] = 0;
+}
+
+CPP_DLL void CppPlugin::GetLPCTSTR(__out char* str) {
+	LPCTSTR s = _T("This is a string from LPTSTR in C++");
+
+	std::string stds = CW2A(s);
+	memcpy(str, stds.data(), stds.size());
+	str[(int)stds.size()] = 0;
+}
+
+CPP_DLL void CppPlugin::GetLPWSTR(LPWSTR str) {
+	//std::wstring wStr = L"This is a string from wstring in C++";
+	wmemcpy((wchar_t*)str, kWStr.data(), kWStr.size());
+	str[(int)kWStr.size()] = 0;
+}
+
+CPP_DLL void CppPlugin::GetLPCWSTRfromCallback(LPCWSTRCallBack callback) {
+	callback(kLPCWSTR);
 }
 
 CPP_DLL int CppPlugin::GetkInt() {

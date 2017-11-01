@@ -1,5 +1,6 @@
 #pragma once
 #include "TestClass.h"
+#include <Windows.h>
 
 #define CPP_DLL __declspec(dllexport)
 
@@ -22,6 +23,10 @@ namespace CppPlugin{
 
 		CPP_DLL void GetString(char* str);
 		CPP_DLL void PassString(char* dest, const char* src);
+		CPP_DLL void GetLPCTSTR(__out char* str);
+		CPP_DLL void GetLPWSTR(LPWSTR str);
+		typedef void(*LPCWSTRCallBack)(LPCWSTR str);
+		CPP_DLL void GetLPCWSTRfromCallback(LPCWSTRCallBack callback);
 
 		CPP_DLL void Sort(int a[], int length);
 

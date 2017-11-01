@@ -70,6 +70,17 @@ namespace CppPlugin {
             CppPluginDll.TestStruct_GetStruct(ref testS);
             Debug.Log("[TestStruct_GetStruct] " + testS.num + " " + testS.floatNum + " " + Marshal.PtrToStringAnsi(testS.str));
 
+            sb.Length = 0;
+            CppPluginDll.GetLPCTSTR(sb);
+            Debug.Log("[GetLPCTSTR] " + sb.ToString() + ", Length: " + sb.Length + ", Capability: " + sb.Capacity);
+
+            sb.Length = 0;
+            CppPluginDll.GetLPWSTR(sb);
+            Debug.Log("[GetLPWSTR] " + sb.ToString() + ", Length: " + sb.Length + ", Capability: " + sb.Capacity);
+
+            CppPluginDll.LPCWSTRCallBack cb = CppPluginDll.OnLPCWSTRCallBack;
+            CppPluginDll.GetLPCWSTRfromCallback(cb);
+
             Debug.Log("===================== End TestUnity ===================== ");
         }
     }
