@@ -31,11 +31,11 @@ namespace CppPlugin {
         [DllImport("cppplugin")]
         public static extern void PassString(StringBuilder dest, string src);
 
-        [DllImport("cppplugin")]
-        public static extern void GetLPCTSTR(StringBuilder sb);
-
         [DllImport("cppplugin", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void GetLPWSTR([MarshalAsAttribute(UnmanagedType.LPWStr)] StringBuilder sb);
+
+        [DllImport("cppplugin", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        public static extern void PassLPCWSTR([MarshalAsAttribute(UnmanagedType.LPWStr)] StringBuilder sb, [MarshalAsAttribute(UnmanagedType.LPWStr)] string str);
 
         public delegate void LPCWSTRCallBack([MarshalAsAttribute(UnmanagedType.LPWStr)] string str);
         public static void OnLPCWSTRCallBack([MarshalAsAttribute(UnmanagedType.LPWStr)] string str) {

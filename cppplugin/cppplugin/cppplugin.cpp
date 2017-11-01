@@ -41,18 +41,17 @@ CPP_DLL void CppPlugin::PassString(char* dest, const char* src) {
 	dest[(int)s.size()] = 0;
 }
 
-CPP_DLL void CppPlugin::GetLPCTSTR(__out char* str) {
-	LPCTSTR s = _T("This is a string from LPTSTR in C++");
-
-	std::string stds = CW2A(s);
-	memcpy(str, stds.data(), stds.size());
-	str[(int)stds.size()] = 0;
-}
-
 CPP_DLL void CppPlugin::GetLPWSTR(LPWSTR str) {
-	//std::wstring wStr = L"This is a string from wstring in C++";
 	wmemcpy((wchar_t*)str, kWStr.data(), kWStr.size());
 	str[(int)kWStr.size()] = 0;
+}
+
+CPP_DLL void CppPlugin::PassLPCWSTR(LPWSTR dest, LPCWSTR src) {
+	std::string stds = CW2A(src);
+	//Debug::Log(stds.c_str(), 0);
+
+	wmemcpy((wchar_t*)dest, (wchar_t*)src, wcslen(src));
+	dest[(int)wcslen(src)] = 0;
 }
 
 CPP_DLL void CppPlugin::GetLPCWSTRfromCallback(LPCWSTRCallBack callback) {

@@ -23,8 +23,8 @@ namespace CppPlugin{
 
 		CPP_DLL void GetString(char* str);
 		CPP_DLL void PassString(char* dest, const char* src);
-		CPP_DLL void GetLPCTSTR(__out char* str);
 		CPP_DLL void GetLPWSTR(LPWSTR str);
+		CPP_DLL void PassLPCWSTR(LPWSTR dest, LPCWSTR src);
 		typedef void(*LPCWSTRCallBack)(LPCWSTR str);
 		CPP_DLL void GetLPCWSTRfromCallback(LPCWSTRCallBack callback);
 
