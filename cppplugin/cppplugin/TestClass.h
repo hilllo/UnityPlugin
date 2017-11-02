@@ -1,4 +1,5 @@
 #pragma once
+#include <windows.h>
 
 namespace CppPlugin {
 	class TestClass {
@@ -18,5 +19,13 @@ namespace CppPlugin {
 		int num;
 		float floatNum;
 		const char* str;
+	};
+
+	struct TestCSStruct {
+	public:
+		LPCWSTR str1;
+		LPCWSTR str2;
+		LPCWSTR str3;
+		unsigned i;
 	};
 }

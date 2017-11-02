@@ -13,6 +13,17 @@ namespace CppPlugin {
             public IntPtr str;
         }
 
+        public struct TestCSStruct {
+            [MarshalAs(UnmanagedType.LPWStr)]
+            public string str1;
+            [MarshalAs(UnmanagedType.LPWStr)]
+            public string str2;
+            [MarshalAs(UnmanagedType.LPWStr)]
+            public string str3;
+            [MarshalAs(UnmanagedType.SysUInt)]
+            public uint i;
+        }
+
         #region Simple Func
 
         [DllImport("cppplugin")]
@@ -65,6 +76,17 @@ namespace CppPlugin {
         #region Struct Func
         [DllImport("cppplugin")]
         public static extern void TestStruct_GetStruct([MarshalAs(UnmanagedType.Struct)] ref TestStruct testS);
+        [DllImport("cppplugin")]
+        public static extern void TestStruct_PassStruct([MarshalAs(UnmanagedType.Struct)] TestCSStruct testStruct);
+
+
+        public delegate void GetStructCallBack([MarshalAs(UnmanagedType.Struct)] TestCSStruct testStruct);
+        [MonoPInvokeCallback(typeof(GetStructCallBack))]
+        public static void OnGetStructCallBack([MarshalAs(UnmanagedType.Struct)] TestCSStruct testStruct) {
+            UnityEngine.Debug.Log(testStruct.str1 + " " + testStruct.str2 + " " + testStruct.str3 + " " + testStruct.i);
+        }
+        [DllImport("cppplugin", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void TestStruct_GetStructbyCallback(GetStructCallBack cb);
 
         #endregion Struct Func
 

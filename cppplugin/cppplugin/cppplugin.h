@@ -34,8 +34,12 @@ namespace CppPlugin{
 		CPP_DLL TestClass* TestClass_Create(const char* name);
 		CPP_DLL void TestClass_GetName(TestClass* test, char* name);
 		CPP_DLL void TestClass_Delete(TestClass* test);
+
 		// Struct
 		CPP_DLL void TestStruct_GetStruct(TestStruct* testStruct);
+		CPP_DLL void TestStruct_PassStruct(TestCSStruct testStruct);
+		typedef void(*GetStructCallBack)(TestCSStruct testStruct);
+		CPP_DLL void TestStruct_GetStructbyCallback(GetStructCallBack callback);
 
 		// Callbacks
 		typedef void(*DebugCallBack)(const char* message, int type);

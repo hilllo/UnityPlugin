@@ -95,6 +95,39 @@ CPP_DLL void CppPlugin::TestStruct_GetStruct(TestStruct* testStruct) {
 	Debug::Log(testStruct->str, 0);
 }
 
+CPP_DLL void CppPlugin::TestStruct_PassStruct(TestCSStruct testStruct) {
+	Debug::Log("Get structure form c#", 0);
+	std::wstringstream wss;
+	wss << testStruct.str1 << " " << testStruct.str2 << " " << testStruct.str3;
+	if (testStruct.i == (unsigned)0)
+		wss << " false";
+	else if (testStruct.i == (unsigned)1)
+		wss << " true";
+	std::wstring ws = wss.str();
+	std::string s(ws.begin(), ws.end());
+	Debug::Log(s.c_str(), 0);
+}
+
+CPP_DLL void CppPlugin::TestStruct_GetStructbyCallback(GetStructCallBack callback) {
+	Debug::Log("Get structure form C++", 0);
+	TestCSStruct testStruct;
+	testStruct.str1 = L"I set this struct";
+	testStruct.str2 = L"in";
+	testStruct.str3 = L"the cpp dll!";
+	testStruct.i = (unsigned)1;
+
+	std::wstringstream wss;
+	wss << testStruct.str1 << " " << testStruct.str2 << " " << testStruct.str3;
+	if (testStruct.i == (unsigned)0)
+		wss << " false";
+	else if (testStruct.i == (unsigned)1)
+		wss << " true";
+	std::wstring ws = wss.str();
+	std::string s(ws.begin(), ws.end());
+	Debug::Log(s.c_str(), 0);
+
+	callback(testStruct);
+}
 
 // Callbacks ==========================
 CPP_DLL void CppPlugin::Debug_SetCallBack(DebugCallBack callback) {
